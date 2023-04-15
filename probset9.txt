@@ -1,0 +1,56 @@
+
+CREATE TABLE date (
+id INTEGER,
+user_id,
+stock TEXT,
+stock_name TEXT,
+type TEXT,
+shares INTEGER,
+value INTEGER,
+time TEXT,
+PRIMARY KEY(id),
+FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE TABLE link (
+id INTEGER,
+user_id INTEGER,
+shares_id INTEGER,
+date_id INTEGER,
+PRIMARY KEY(id),
+FOREIGN KEY(user_id) REFERENCES users(id),
+FOREIGN KEY(shares_id) REFERENCES shares(id),
+FOREIGN KEY(date_id) REFERENCES date(id)
+);
+
+CREATE TABLE shares (
+id INTEGER,
+user_id INTEGER,
+stock TEXT,
+stock_name TEXT,
+shares INTEGER,
+share_price INTEGER,
+share_cost INTEGER,
+share_total INTEGER,
+PRIMARY KEY(id),
+FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+
+
+
+DELETE FROM users;
+DELETE FROM link;
+DELETE FROM sell;
+DELETE FROM purchase;
+DELETE FROM date;
+DELETE FROM shares;
+
+
+
+
+DROP TABLE link;
+DROP TABLE sell;
+DROP TABLE purchase;
+DROP TABLE date;
+DROP TABLE shares;

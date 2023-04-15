@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div class="section">
+            <table id="table1">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Shares</th>
+                        <th>Price/stock</th>
+                        <th>Price/bought</th>
+                        <th>Stock funds</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="border-0 fw-bold text-end" colspan="4">Cash</td>
+                        <td class="border-0 text-end">{{ cash | usd }}</td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 fw-bold text-end" colspan="4">Stocks</td>
+                        <td class="border-0 w-bold text-end"></td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
+                        <td class="border-0 w-bold text-end"></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <script>
+                setInterval(function() {
+                $("#table1").load(location.href+" #table1>*","");
+                }, 10000);
+            </script>
+        </div>
+{% endblock %}

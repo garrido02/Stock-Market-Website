@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div class="section">
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Shares</th>
+                        <th>Price/stock</th>
+                        <th>Stock funds</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in portfolio %}
+                        <tr>
+                            <td class="stock">{{ row.stock }}</td>
+                            <td class="stock_name">{{ row.stock_name }}</td>
+                            <td class="shares">{{ row.shares }}</td>
+                            <td class="share_price">{{ row.share_price | usd}}</td>
+                            <td class="share_total">{{ row.share_total | usd}}</td>
+                            <td class="cell_buy">
+                                <form action="/buy" method="post">
+                                    <button class="btn btn-primary" type="submit" name="symbol" value="{{ row.stock }}">Buy x1</button>
+                                    <input type="hidden" name="shares" value="1">
+                                </form>
+                            </td>
+                            <td class="cell_sell">
+                                <form action="/sell" method="post">
+                                    <button class="btn btn-primary" type="submit" name="symbol" value="{{ row.stock }}">Sell x1</button>
+                                    <input type="hidden" name="shares" value="1">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="border-0 fw-bold text-end" colspan="4">Cash</td>
+                        <td class="border-0 text-end">{{ cash | usd}}</td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 fw-bold text-end" colspan="4">Stocks</td>
+                        <td class="border-0 w-bold text-end">{{ shares_total_price | usd }}</td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
+                        <td class="border-0 w-bold text-end">{{ sum_total | usd }}</td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 fw-bold text-end" colspan="4">Balance</td>
+                        <td class="border-0 w-bold text-end">{{ sum_balance | usd }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <script>
+                setInterval(function() {
+                $("#table").load(location.href+" #table>*","");
+                }, 10000);
+            </script>
+        </div>
+{% endblock %}
